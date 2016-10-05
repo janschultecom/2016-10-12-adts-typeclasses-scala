@@ -1,127 +1,198 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>Jan Schulte &#9679; Algebraic Data Types and Typeclasses in scala</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					ADTs and Typeclasses in Scala
-				</section>
-				<section>
-				</section>
-				<section>Slide 1
-						<iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=kUUHo6T/0&theme=dark"></iframe>
-				</section>
-				<section>
-					Or data type 
-					<pre><code class="haskell" data-noescape>data TrafficLight = Green | Yellow | Red
-									</code></pre>
-		</section>
-		<section>
-							<pre><code class="haskell" data-noescape>data Day = Monday | Tuesday | Wednesday
-	| Thursday | Friday | Saturday | Sunday
-							</code></pre>
-</section>
-<section>Let's get back to our day example</section>
-		<section>
-						    <pre><code class="java" data-noescape>public enum Day {
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
-    SUNDAY
-}
-						    </code></pre>
-							</section>
-							<section><table >
-					<tbody>
-					<tr>
-					<td><code>int</code></td>
-					<td><code><strong><a href="../../java/lang/Enum.html#compareTo(E)">compareTo</a></strong>(<a href="../../java/lang/Enum.html" title="type parameter in Enum">E</a>&nbsp;o)</code>
-					<div>Compares this enum with the specified object for order.</div>
-					</td>
-					</tr>
-					<tr>
-					<td><code>int</code></td>
-					<td><code><strong><a href="../../java/lang/Enum.html#ordinal()">ordinal</a></strong>()</code>
-					<div>Returns the ordinal of this enumeration constant (its position
-					 in its enum declaration, where the initial constant is assigned
-					 an ordinal of zero).</div>
-					</td>
-					</tr>
-					</tbody></table>
-							</section>
-							<section>
-								<pre><code class="scala" data-noescape>import org.specs2.mutable.Spec
+    <!-- Custom styling for this presentation -->
+    <link rel="stylesheet" href="css/custom.css">
 
-class DaySpec extends Spec{
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>ADTs & Typeclasses</h1>
+            <h2>in Scala</h2>
+        </section>
+        <section>
+            <h1>Algebraic Data Types</h1>
+            <blockquote cite="https://en.wikipedia.org/w/index.php?title=Algebraic_data_type&oldid=732511903">
+                In computer programming, more so functional programming and type theory, an algebraic data type is a
+                kind of composite type, i.e., a type formed by combining other types.
+            </blockquote>
+            <p class="quote"><em>Source <a
+                    href="https://en.wikipedia.org/w/index.php?title=Algebraic_data_type&oldid=732511903">Wikipedia</a></em>
+            </p>
+        </section>
+        <section>
+            <h1>Algebraic Data Types</h1>
+            <p class="fragment">A type: Int, String, Double, …</p>
+            <p class="fragment">ADTs are composite types</p>
+            <p>
+            <ul class="fragment">
+                <li>Sum types</li>
+                <li>Product types</li>
+                <li>Recursive types</li>
+                <li>…</li>
+            </ul>
+            </p>
+        </section>
+        <section>
+            <h1>Algebraic Data Types</h1>
+            <p data-markdown>Model data as combination of logical ***or*** and ***and***</p>
+            <ul>
+                <li class="fragment" data-markdown>Website Visitor ***is*** a logged in user ***or*** anonymous</li>
+                <li class="fragment" data-markdown>A logged in user ***has*** an id ***and*** an email</li>
+            </ul>
+            <p class="quote">
+                <em>Source <a
+                        href="http://downloads.typesafe.com/website/presentations/ScalaDaysSF2015/essential-scala.pdf">Noel
+                    Welsh</a></em>
+            </p>
+        </section>
+        <section>
+            <h1>ADTs - Sum type</h1>
+            <p>
+                <span class="fragment" data-fragment-index="1">Describes <em>+</em> types</span>
+                <span class="fragment" data-fragment-index="2">or logical <em>or</em> types</span>
+            </p>
+            <p data-markdown class="fragment">Thinking in ***is a*** relationships</p>
+            <p>
+                <code class="haskell">
+                    <span class="haskell fragment" data-noescape>data TrafficLight</span>
+                    <span class="haskell fragment" data-noescape> = Green</span>
+                    <span class="haskell fragment" data-noescape> | Yellow</span>
+                    <span class="haskell fragment" data-noescape> | Red</span>
+                </code>
+            </p>
+        </section>
+        <section>
+            <h1>ADTs - Sum type</h1>
+            <pre>
+                <code class="haskell" data-trim>data Day =
+    Monday    | Tuesday  |
+    Wednesday | Thursday |
+    Friday    | Saturday |
+    Sunday</code>
+                </pre>
+        </section>
+        <section>
+            <h1>ADTs - Sum type</h1>
+            <pre>
+            <code class="haskell" data-trim data-noescape>data Calculation =
+    Success | Failure
+            </code>
+            </pre>
+        </section>
+        <section>Slide 1
+            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=kUUHo6T/0&theme=dark"></iframe>
+        </section>
+        <section>Let's get back to our day example</section>
+        <section>
+            <pre>
+                <code class="java" data-noescape data-trim>
+                    public enum Day {
+                        MONDAY,
+                        TUESDAY,
+                        WEDNESDAY,
+                        THURSDAY,
+                        FRIDAY,
+                        SATURDAY,
+                        SUNDAY
+                    }
+                </code></pre>
+        </section>
+        <section>
+            <table>
+                <tbody>
+                <tr>
+                    <td><code>int</code></td>
+                    <td><code><strong><a href="../../java/lang/Enum.html#compareTo(E)">compareTo</a></strong>(<a
+                            href="../../java/lang/Enum.html" title="type parameter in Enum">E</a>&nbsp;o)</code>
+                        <div>Compares this enum with the specified object for order.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td><code><strong><a href="../../java/lang/Enum.html#ordinal()">ordinal</a></strong>()</code>
+                        <div>Returns the ordinal of this enumeration constant (its position
+                            in its enum declaration, where the initial constant is assigned
+                            an ordinal of zero).
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <pre><code class="scala" data-noescape data-trim>import org.specs2.mutable.Spec
+            class DaySpec extends Spec{
 
-  "Sunday" should {
-    "be greater than Monday" in {
+              "Sunday" should {
+                "be greater than Monday" in {
+                  Day.SUNDAY must be_>(Day.MONDAY)
+                }
+              }
 
-      Day.SUNDAY must be_>(Day.MONDAY)
-    }
-  }
+              "Monday" should {
+                "be smaller than Sunday" in {
+                  Day.MONDAY must be_<(Day.SUNDAY)
+                }
+              }
+            }
+            </code></pre>
+        </section>
+        <section>
+            <pre><code class="shell" data-noescape data-trim>[info] DaySpec
+            [info] Sunday should
+            [info]   + be greater than Monday
+            [info] Monday should
+            [info]   + be smaller than Sunday
+            [info] Sundays ordinal should
+            [info]   + be 6
+            </code></pre>
+        </section>
+    </div>
+</div>
 
-  "Monday" should {
-    "be smaller than Sunday" in {
-      Day.MONDAY must be_<(Day.SUNDAY)
-    }
-  }
-}
-</code></pre>
-							</section>
-							<section>
-								<pre><code class="shell" data-noescape>[info] DaySpec
-[info] Sunday should
-[info]   + be greater than Monday
-[info] Monday should
-[info]   + be smaller than Sunday
-[info] Sundays ordinal should
-[info]   + be 6
-								</code></pre>
-		</section>
-			</div>
-		</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
-
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
 </html>
