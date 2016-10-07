@@ -9,3 +9,7 @@
     margin: 0px;
     width: 100%;
 }
+
+.codeSmall {
+    font-size: 0.9em !important;
+}
