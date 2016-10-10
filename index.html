@@ -212,16 +212,67 @@
             <p class="fragment"><i class="fa fa-thumbs-o-up fa-3" aria-hidden="true"></i> Awesome!</p>
             <p class="fragment">But how do we make our types support some functionality?</p>
         </section>
-        <section>
+        <!--<section>
             <h1>The OO approach</h1>
             <p>
                 <span class="fragment">Inheritance</span>
                 <span class="fragment"> ...obiously</span>
             </p>
+        </section>-->
+        <section>
+            <h1>Problem #1</h1>
+            <p class="fragment">Calculate the area of a shape</p>
         </section>
         <section>
             <h1>Problem #1</h1>
-            <p class="fragment">Serialise an object to send it over the wire</p>
+            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=FclqCqq/0&theme=dark"></iframe>
+        </section>
+        <section>
+            <h1><a href="https://en.wikipedia.org/wiki/Expression_problem">Expression problem</a></h1>
+            <div>
+                <blockquote class="twitter-tweet tw-align-center" data-lang="en"><p lang="en" dir="ltr">Ok this was the moment you were waiting for.<a href="https://twitter.com/Lambda_World">@Lambda_World</a> <a href="https://twitter.com/PhilipWadler">@PhilipWadler</a> <a href="https://t.co/YIsxMYDVQE">pic.twitter.com/YIsxMYDVQE</a></p>&mdash; Luca Molteni (@volothamp) <a href="https://twitter.com/volothamp/status/782286233930203136">October 1, 2016</a></blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </section>
+        <section>
+            <h1>Expression problem</h1>
+            <p class="fragment">Adding subtypes is easy</p>
+            <p class="fragment">Adding functions is difficult</p>
+            <p class="fragment">GoF Visitor Pattern! <span class="fragment">Don't you dare!</span></p>
+        </section>
+        <section>
+            <h1>Typeclasses to the rescue</h1>
+            <p>Concept from FP languages (Haskell)</p>
+        </section>
+        <section>
+            <h1>Area Typeclass</h1>
+            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=SNQlzdX/2&theme=dark"></iframe>
+        </section>
+        <section>
+            <h1>Typeclasses - Simulacrum</h1>
+            <p class="fragment">Compiler plugin by <a href="https://github.com/mpilquist">Michael Pilquist</a></p>
+            <p class="fragment">Scrap your typeclass boilerplate</p>
+            <pre class="fragment">
+                <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
+import simulacrum._
+
+@typeclass trait Semigroup[A] {
+@op("|+|") def append(x: A, y: A): A
+}
+
+implicit val semigroupInt: Semigroup[Int] = new Semigroup[Int] {
+  def append(x: Int, y: Int) = x + y
+}
+
+import Semigroup.ops._
+1 |+| 2 // 3
+                </code></pre>
+            <p class="quote"><em>Source <a
+                    href="https://github.com/mpilquist/simulacrum">Michael Pilquist</a></em></p>
+        </section>
+        <section>
+            <h1>More problems</h1>
         </section>
         <section>
             <h1>Problem #2</h1>
@@ -312,6 +363,36 @@ public final enum Day extends java/lang/Enum  {
             <p class="fragment">What I18N? Americas, Middle East?</p>
         </section>
         <section>
+            <h1>Order typeclass</h1>
+            <a href="http://typelevel.org/cats/" class="fragment">Cats library</a>
+            <!--<table class="fragment" style="height: 200px;">
+                <tr>
+                    <td><img src="http://plastic-idolatry.com/erik/cats2.png"></td>
+                    <td><a href="http://typelevel.org/cats/">Cats library</a></td>
+                </tr>
+            </table>-->
+            <pre>
+                <code class="scala codeSmall fragment" style="line-height: 1.3em" data-trim>
+/**
+* The `Order` type class is used to define a total ordering on some type `A`.
+*/
+trait Order[A]{
+  def compare(x: A, y: A): Int
+}</code></pre>
+            <p class="quote"><em>Source <a
+                    href="https://github.com/typelevel/cats/blob/155f7f534993c30d6e757de990330ac796dad5da/kernel/src/main/scala/cats/kernel/Order.scala">Cats
+                (excerpt)</a></em></p>
+
+        </section>
+        <section>
+            <h1>Order typeclass</h1>
+            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=CWKqB3a/7&theme=dark"></iframe>
+        </section>
+        <section>
+            <h1>Show typeclass</h1>
+        </section>
+        <section>
             <h1>Problem #3</h1>
             <p>Get a textual representation of an object</p>
             <p class="fragment">a.k.a <code>toString</code></p>
@@ -342,76 +423,12 @@ public final enum Day extends java/lang/Enum  {
         </section>
         <section>
             <h1>Problem #3</h1>
-            <p class="fragment">Do you know how <code>toString()</code> is used in your project?</p>
+            <p>Do you know how <code>toString()</code> is used in your project?</p>
             <ul>
                 <li class="fragment">Output Css classes (hmmkay)</li>
                 <li class="fragment">Create Javascript tracking code (seriously?)</li>
                 <li class="fragment">Create a checksum (dafuq???)</li>
             </ul>
-        </section>
-        <section>
-            <h1>Typeclasses to the rescue</h1>
-        </section>
-        <section>
-            <h1>Typeclasses</h1>
-            <p>Concept from FP languages </p>
-        </section>
-        <section>
-            <h1>Simulacrum</h1>
-            <p class="fragment">Compiler plugin by <a href="https://github.com/mpilquist">Michael Pilquist</a></p>
-            <p class="fragment">Scrap typeclass boilerplate</p>
-            <pre class="fragment">
-                <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
-import simulacrum._
-
-@typeclass trait Semigroup[A] {
-@op("|+|") def append(x: A, y: A): A
-}
-                </code></pre>
-        </section>
-        <section>
-            <h1>The problem</h1>
-            <pre class="fragment">
-                <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
-case class Person(name:String, age:Int)
-                </code></pre>
-            <p class="fragment">Serialisation to Json</p>
-        </section>
-        <section>
-            <h1>The OO style</h1>
-            <pre class="fragment">
-                <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
-case class Person(name:String, age:Int)
-                </code></pre>
-        </section>
-        <section>
-            <h1>Some typical typeclasses</h1>
-        </section>
-        <section>
-            <h1>Order</h1>
-        </section>
-        <section>
-            <h1>Problem #2 - Order typeclass</h1>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <pre>
-                <code class="scala codeSmall" style="line-height: 1.3em" data-trim>
-/**
-* The `Order` type class is used to define a total ordering on some type `A`.
-*/
-trait Order[A]{
-  def compare(x: A, y: A): Int
-}</code></pre>
-            <p class="quote"><em>Source <a
-                    href="https://github.com/typelevel/cats/blob/155f7f534993c30d6e757de990330ac796dad5da/kernel/src/main/scala/cats/kernel/Order.scala">Cats
-                (excerpt)</a></em></p>
-
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
-                    src="https://embed.scalafiddle.io/embed?sfid=CWKqB3a/7&theme=dark"></iframe>
         </section>
         <section>
             <h1>Show typeclass</h1>
