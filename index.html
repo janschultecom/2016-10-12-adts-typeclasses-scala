@@ -37,11 +37,12 @@
         </section>
         <section>
             <h1>Algebraic Data Types</h1>
-            <blockquote class="fragment" data-fragment-index="1" cite="https://en.wikipedia.org/w/index.php?title=Algebraic_data_type&oldid=732511903">
+            <blockquote class="fragment" data-fragment-index="1"
+                        cite="https://en.wikipedia.org/w/index.php?title=Algebraic_data_type&oldid=732511903">
                 In computer programming, more so functional programming and type theory, an algebraic data type is a
                 kind of composite type, i.e., a type formed by combining other types.
             </blockquote>
-            <p class="quote fragment" data-fragment-index="1" ><em>Source <a
+            <p class="quote fragment" data-fragment-index="1"><em>Source <a
                     href="https://en.wikipedia.org/w/index.php?title=Algebraic_data_type&oldid=732511903">Wikipedia</a></em>
             </p>
         </section>
@@ -177,22 +178,29 @@
         <section>
             <h1>Recursive types</h1>
             <p class="fragment" data-fragment-index="1">Let's model a professor with his students</p>
-            <p class="fragment" data-fragment-index="2" data-markdown="">A professor ***has*** a name ***and*** a class year ***and*** some students</p>
-            <iframe class="fragment" data-fragment-index="3" height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=vdy4tNm/0&theme=dark"></iframe>
-            <p class="quote fragment" data-fragment-index="3" ><em>Source <a href="https://www.youtube.com/watch?v=7xSfLPD6tiQ">Rob Norris</a></em></p>
+            <p class="fragment" data-fragment-index="2" data-markdown="">A professor ***has*** a name ***and*** a class
+                year ***and*** some students</p>
+            <iframe class="fragment" data-fragment-index="3" height="300" frameborder="0"
+                    style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=vdy4tNm/0&theme=dark"></iframe>
+            <p class="quote fragment" data-fragment-index="3"><em>Source <a
+                    href="https://www.youtube.com/watch?v=7xSfLPD6tiQ">Rob Norris</a></em></p>
         </section>
         <section>
             <h1>Recursive types</h1>
-            <p class="fragment" data-markdown="">A List ***is*** either an ***empty*** list or a combination of a head ***and*** a tail</p>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=KVzVHVC/0&theme=dark"></iframe>
+            <p class="fragment" data-markdown="">A List ***is*** either an ***empty*** list or a combination of a head
+                ***and*** a tail</p>
+            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=KVzVHVC/0&theme=dark"></iframe>
         </section>
         <section>
             <h1>Take aways</h1>
             <ul>
                 <li class="fragment">ADTs are simple</li>
-                <li class="fragment">Don't stringly-typed programming!</li>
-                <li class="fragment">Just use a f**king ADT</li>
-                <li></li>
+                <li class="fragment">ADTs are powerful</li>
+                <li class="fragment">Don't do stringly-typed programming!</li>
+                <li class="fragment">Model your data as ADT!</li>
+                <li class="fragment"><i>Just use a f**king ADT</i> - Mark Eibes</li>
             </ul>
         </section>
         <section>
@@ -202,15 +210,164 @@
             <h1>Typeclasses</h1>
             <p class="fragment">ADTs: Sum, Product, Recursive...</p>
             <p class="fragment"><i class="fa fa-thumbs-o-up fa-3" aria-hidden="true"></i> Awesome!</p>
-            <p class="fragment">But how do we make our types support certain operations?</p>
+            <p class="fragment">But how do we make our types support some functionality?</p>
+        </section>
+        <section>
+            <h1>The OO approach</h1>
+            <p>
+                <span class="fragment">Inheritance</span>
+                <span class="fragment"> ...obiously</span>
+            </p>
+        </section>
+        <section>
+            <h1>Problem #1</h1>
+            <p class="fragment">Serialise an object to send it over the wire</p>
+        </section>
+        <section>
+            <h1>Problem #2</h1>
+            <p class="fragment">Compare two days w.r.t. position in week</p>
+        </section>
+        <section>
+            <h1>Problem #2</h1>
+            <p class="fragment">Let's do this in Java!</p>
+            <pre class="fragment">
+                <code class="java codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
+public enum Day {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+}
+                </code></pre>
+        </section>
+        <section>
+            <h1>Problem #2s</h1>
+            <pre>
+                <code class="java codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
+// class version 52.0 (52)
+// access flags 0x4031
+// signature Ljava/lang/Enum &lt;LDay;>;
+// declaration: Day extends java.lang.Enum &lt;Day>
+public final enum Day extends java/lang/Enum  {
+                </code>
+            </pre>
+        </section>
+        <section>
+            <h1>Problem #2</h1>
+            <table>
+                <tbody>
+                <tr>
+                    <td><code>int</code></td>
+                    <td><code><strong><a href="../../java/lang/Enum.html#compareTo(E)">compareTo</a></strong>(<a
+                            href="../../java/lang/Enum.html" title="type parameter in Enum">E</a>&nbsp;o)</code>
+                        <div>Compares this enum with the specified object for order.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td><code><strong><a href="../../java/lang/Enum.html#ordinal()">ordinal</a></strong>()</code>
+                        <div>Returns the ordinal of this enumeration constant (its position
+                            in its enum declaration, where the initial constant is assigned
+                            an ordinal of zero).
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h1>Problem #2</h1>
+            <pre><code class="scala codeSmall" style="line-height: 1.2em" data-noescape data-trim>class DaySpec extends Spec {
+  "Sunday" should {
+    "be greater than Monday" in {
+      val result = Day.SUNDAY compareTo Day.MONDAY
+      result must be_>(0)
+    }
+  }
+  "Monday" should {
+    "be smaller than Sunday" in {
+      val result = Day.MONDAY compareTo Day.SUNDAY
+      result must be_<(0)
+    }
+  }
+}</code></pre>
+        </section>
+        <section>
+            <h1>Problem #2</h1>
+            <pre><code class="shell" style="line-height: 1em" data-noescape data-trim>[info] DaySpec
+[info]
+[info] Sunday should
+[info]   + be greater than Monday
+[info] Monday should
+[info]   + be smaller than Sunday
+            </code></pre>
+        </section>
+        <section>
+            <h1>Problem #2</h1>
+            <p class="fragment">Pretty cool, uh??</p>
+            <p class="fragment">Well, NO!!</p>
+            <p class="fragment">What I18N? Americas, Middle East?</p>
+        </section>
+        <section>
+            <h1>Problem #3</h1>
+            <p>Get a textual representation of an object</p>
+            <p class="fragment">a.k.a <code>toString</code></p>
+        </section>
+        <section>
+            <h1>Problem #3</h1>
+            <img src="media/typeclasses-object.png">
+        </section>
+        <section>
+            <h1>Problem #3</h1>
+            <img src="media/typeclasses-toString.png">
+        </section>
+        <section>
+            <h1>Problem #3</h1>
+            <img src="media/typeclasses-json.png">
+        </section>
+        <section>
+            <h1>Problem #3</h1>
+            <p class="fragment">Do you know how <code>toString()</code> is used in your project?</p>
+            <ul>
+                <li class="fragment">Testing</li>
+                <pre><code class="scala fragment codeSmall"
+                           style="min-width: 600px;">Person(Name(Jan),Age(32))</code></pre>
+                <li class="fragment">Logging</li>
+                <pre><code class="shell fragment codeSmall">Jan[age=32]</code></pre>
+                <li class="fragment">Json Serialisation</li>
+            </ul>
+        </section>
+        <section>
+            <h1>Problem #3</h1>
+            <p class="fragment">Do you know how <code>toString()</code> is used in your project?</p>
+            <ul>
+                <li class="fragment">Output Css classes (hmmkay)</li>
+                <li class="fragment">Create Javascript tracking code (seriously?)</li>
+                <li class="fragment">Create a checksum (dafuq???)</li>
+            </ul>
+        </section>
+        <section>
+            <h1>Typeclasses to the rescue</h1>
+        </section>
+        <section>
+            <h1>Typeclasses</h1>
+            <p>Concept from FP languages </p>
         </section>
         <section>
             <h1>Simulacrum</h1>
+            <p class="fragment">Compiler plugin by <a href="https://github.com/mpilquist">Michael Pilquist</a></p>
+            <p class="fragment">Scrap typeclass boilerplate</p>
+            <pre class="fragment">
+                <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
 import simulacrum._
 
 @typeclass trait Semigroup[A] {
 @op("|+|") def append(x: A, y: A): A
 }
+                </code></pre>
         </section>
         <section>
             <h1>The problem</h1>
@@ -234,92 +391,7 @@ case class Person(name:String, age:Int)
             <h1>Order</h1>
         </section>
         <section>
-            <h1>The problem</h1>
-            <p class="fragment">Compare two days w.r.t. position in week</p>
-            <p class="fragment">Let's do this in Java!</p>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <pre class="fragment">
-                <code class="java codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
-public enum Day {
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
-    SUNDAY
-}
-                </code></pre>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <pre>
-                <code class="java codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
-// class version 52.0 (52)
-// access flags 0x4031
-// signature Ljava/lang/Enum &lt;LDay;>;
-// declaration: Day extends java.lang.Enum &lt;Day>
-public final enum Day extends java/lang/Enum  {
-                </code>
-            </pre>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <table>
-                <tbody>
-                <tr>
-                    <td><code>int</code></td>
-                    <td><code><strong><a href="../../java/lang/Enum.html#compareTo(E)">compareTo</a></strong>(<a
-                            href="../../java/lang/Enum.html" title="type parameter in Enum">E</a>&nbsp;o)</code>
-                        <div>Compares this enum with the specified object for order.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><code>int</code></td>
-                    <td><code><strong><a href="../../java/lang/Enum.html#ordinal()">ordinal</a></strong>()</code>
-                        <div>Returns the ordinal of this enumeration constant (its position
-                            in its enum declaration, where the initial constant is assigned
-                            an ordinal of zero).
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <pre><code class="scala codeSmall" style="line-height: 1.2em" data-noescape data-trim>class DaySpec extends Spec {
-  "Sunday" should {
-    "be greater than Monday" in {
-      val result = Day.SUNDAY compareTo Day.MONDAY
-      result must be_>(0)
-    }
-  }
-  "Monday" should {
-    "be smaller than Sunday" in {
-      val result = Day.MONDAY compareTo Day.SUNDAY
-      result must be_<(0)
-    }
-  }
-}</code></pre>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <pre><code class="shell" style="line-height: 1em" data-noescape data-trim>[info] DaySpec
-[info]
-[info] Sunday should
-[info]   + be greater than Monday
-[info] Monday should
-[info]   + be smaller than Sunday
-            </code></pre>
-            <p class="fragment">Pretty cool, uh??</p>
-        </section>
-        <section>
-            <h1>Order typeclass</h1>
-            <p class="fragment">Well, NO!!</p>
-            <p class="fragment">What I18N? Americas, Middle East?</p>
+            <h1>Problem #2 - Order typeclass</h1>
         </section>
         <section>
             <h1>Order typeclass</h1>
@@ -331,27 +403,15 @@ public final enum Day extends java/lang/Enum  {
 trait Order[A]{
   def compare(x: A, y: A): Int
 }</code></pre>
-            <p class="quote" ><em>Source <a href="https://github.com/typelevel/cats/blob/155f7f534993c30d6e757de990330ac796dad5da/kernel/src/main/scala/cats/kernel/Order.scala">Cats (excerpt)</a></em></p>
+            <p class="quote"><em>Source <a
+                    href="https://github.com/typelevel/cats/blob/155f7f534993c30d6e757de990330ac796dad5da/kernel/src/main/scala/cats/kernel/Order.scala">Cats
+                (excerpt)</a></em></p>
 
         </section>
         <section>
             <h1>Order typeclass</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=CWKqB3a/7&theme=dark"></iframe>
-        </section>
-        <section>
-            <h1>Show typeclass</h1>
-        </section>
-        <section>
-            <h1>Show typeclass</h1>
-            <p class="fragment">Do you know how <code>toString()</code> is used in your project?</p>
-            <ul>
-                <li class="fragment">Testing (case classes)</li>
-                <li class="fragment">Logging</li>
-                <li class="fragment">Json Serialisation</li>
-                <li class="fragment">Output Css classes</li>
-                <li class="fragment">Create Javascript tracking code (w00t?)</li>
-                <li class="fragment">Create a checksum (dafuq???)</li>
-            </ul>
+            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=CWKqB3a/7&theme=dark"></iframe>
         </section>
         <section>
             <h1>Show typeclass</h1>
@@ -363,15 +423,17 @@ trait Order[A]{
 trait Show[A] {
     def show(f: A): String
 }</code></pre>
-            <p class="quote" ><em>Source <a href="http://typelevel.org/cats/typeclasses.html">Cats</a></em></p>
+            <p class="quote"><em>Source <a href="http://typelevel.org/cats/typeclasses.html">Cats</a></em></p>
         </section>
         <section>
             <h1>Show typeclass</h1>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=JAhnXq1/1&theme=dark"></iframe>
+            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=JAhnXq1/1&theme=dark"></iframe>
         </section>
         <section>
             <h1>Show typeclass</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=qE8syMH/1&theme=dark"></iframe>
+            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=qE8syMH/1&theme=dark"></iframe>
         </section>
         <section>
             <h1>Take aways</h1>
@@ -384,8 +446,10 @@ trait Show[A] {
         </section>
         <section>
             <h1>Thank you!</h1>
-            <p><a href="https://twitter.com/janschultecom"><i class="fa fa-twitter fa-3" aria-hidden="true"></i> @janschultecom</a></p>
-            <p><a href="https://github.com/janschultecom"><i class="fa fa-github-alt fa-3" aria-hidden="true"></i>  github.com/janschultecom</a></p>
+            <p><a href="https://twitter.com/janschultecom"><i class="fa fa-twitter fa-3" aria-hidden="true"></i>
+                @janschultecom</a></p>
+            <p><a href="https://github.com/janschultecom"><i class="fa fa-github-alt fa-3" aria-hidden="true"></i>
+                github.com/janschultecom</a></p>
         </section>
     </div>
 </div>
