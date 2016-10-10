@@ -145,8 +145,7 @@
         <section>
             <h1>Product type</h1>
             <p class="fragment">And now in Scala...</p>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
-                    src="https://embed.scalafiddle.io/embed?sfid=kUUHo6T/7&theme=dark"></iframe>
+            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=kUUHo6T/8&theme=dark"></iframe>
         </section>
         <section>
             <h1>Product type</h1>
@@ -254,16 +253,16 @@
                 <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
 import simulacrum._
 
-@typeclass trait Semigroup[A] {
-@op("|+|") def append(x: A, y: A): A
+@typeclass trait JsonSerialisable[A] {
+  @op("toJson") def serialise(elem:A): String
 }
 
-implicit val semigroupInt: Semigroup[Int] = new Semigroup[Int] {
-  def append(x: Int, y: Int) = x + y
+implicit val intSerialisable = new JsonSerialisable[Int] {
+  override def serialise(elem:Int) = "{\"elem\":"+ elem + "}"
 }
 
-import Semigroup.ops._
-1 |+| 2 // 3
+import JsonSerialisable.ops._
+1.toJson
                 </code></pre>
             <p class="quote"><em>Source <a
                     href="https://github.com/mpilquist/simulacrum">Michael Pilquist</a></em></p>
@@ -357,17 +356,11 @@ public final enum Day extends java/lang/Enum  {
             <h1>Problem #2</h1>
             <p class="fragment">Pretty cool, uh??</p>
             <p class="fragment">Well, NO!!</p>
-            <p class="fragment">What I18N? Americas, Middle East?</p>
+            <p class="fragment">What about I18N? Americas, Middle East?</p>
         </section>
         <section>
             <h1>Order typeclass</h1>
             <a href="http://typelevel.org/cats/" class="fragment">Cats library</a>
-            <!--<table class="fragment" style="height: 200px;">
-                <tr>
-                    <td><img src="http://plastic-idolatry.com/erik/cats2.png"></td>
-                    <td><a href="http://typelevel.org/cats/">Cats library</a></td>
-                </tr>
-            </table>-->
             <pre>
                 <code class="scala codeSmall fragment" style="line-height: 1.3em" data-trim>
 /**
@@ -455,6 +448,8 @@ trait Show[A] {
                 <li>Typeclasses are amazing</li>
                 <li>Use TCs to add functionality to your ADTs</li>
                 <li>Use simulacrum to avoid boilerplate</li>
+                <li>TC instances to support different types</li>
+                <li>TC instances to support different implementations</li>
             </ul>
         </section>
         <section>
