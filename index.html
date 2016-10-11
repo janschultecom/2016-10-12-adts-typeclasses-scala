@@ -112,8 +112,8 @@
             <h1>Sum type</h1>
             <p class="fragment">So how do we represent that in Scala?</p>
             <!--<pre><code class="haskell fragment codeSmall" data-trim>data TrafficLight = Green | Yellow | Red</code></pre>-->
-            <iframe class="fragment" height="300" frameborder="0"
-                    style="width: 100%; overflow: hidden; font-size: 1.3em;"
+            <iframe class="fragment" height="400" frameborder="0"
+                    style="width: 100%; overflow: hidden; font-size: 1.5em;"
                     src="https://embed.scalafiddle.io/embed?sfid=G4tVaWh/2&theme=dark"></iframe>
         </section>
 
@@ -130,7 +130,7 @@
                 <code class="haskell">
                     <span class="haskell fragment" data-noescape>data Person</span>
                     <span class="haskell fragment" data-noescape> = String</span>
-                    <span class="haskell fragment" data-noescape> Int</span>
+                    <span class="haskell fragment" data-noescape> & Int</span>
                 </code>
             </p>
         </section>
@@ -138,7 +138,7 @@
             <h1>Product type</h1>
             <p data-markdown>A Point ***has *** an x ***and*** an y</p>
             <pre>
-                <code class="haskell fragment" data-trim>data Point = Double Double</code>
+                <code class="haskell fragment" data-trim>data Point = Double & Double</code>
             </pre>
         </section>
         <section>
@@ -163,13 +163,13 @@
         <section>
             <h1>Composition</h1>
             <p data-markdown class="fragment">A result of a computation ***is*** empty or it just ***has*** a return value</p>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+            <iframe class="fragment" height="400" frameborder="0" style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=ZYT9Tx7/2&theme=dark"></iframe>
         </section>
         <section>
             <h1>Composition</h1>
             <p data-markdown class="fragment">A result of a computation ***is*** either a String ***or*** an Int</p>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+            <iframe class="fragment" height="400" frameborder="0" style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=EL2ObHV/2&theme=dark"></iframe>
         </section>
         <section>
@@ -182,7 +182,7 @@
             <h1>Recursive types</h1>
             <p class="fragment" data-markdown="">A professor ***has*** a name ***and*** a class
                 year ***and*** some students</p>
-            <iframe class="fragment" data-fragment-index="3" height="300" frameborder="0"
+            <iframe class="fragment" height="400" frameborder="0"
                     style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=vdy4tNm/0&theme=dark"></iframe>
         </section>
@@ -238,12 +238,12 @@
                     src="https://embed.scalafiddle.io/embed?sfid=SNQlzdX/3&theme=dark"></iframe>
         </section>
         <section>
-            <h1>Typeclasses - Simulacrum</h1>
+            <h1>Typeclasses - <a href="https://github.com/mpilquist/simulacrum">Simulacrum</a></h1>
             <p class="fragment">Compiler plugin by <a href="https://github.com/mpilquist">Michael Pilquist</a></p>
             <p class="fragment">Reduce required typeclass boilerplate</p>
         </section>
         <section>
-            <h1>Typeclasses - Simulacrum</h1>
+            <h1>Typeclasses - <a href="https://github.com/mpilquist/simulacrum">Simulacrum</a></h1>
             <pre>
                 <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
 import simulacrum._
@@ -353,7 +353,7 @@ public final enum Day extends java/lang/Enum  {
         </section>
         <section>
             <h1>Order typeclass</h1>
-            <a href="http://typelevel.org/cats/" class="fragment">Typelevel Cats library</a>
+            <p><a href="http://typelevel.org/">Typelevel</a> <a href="http://typelevel.org/cats/" class="fragment">Cats</a> library</p>
             <pre>
                 <code class="scala codeSmall fragment" style="line-height: 1.3em" data-trim>
 /**
