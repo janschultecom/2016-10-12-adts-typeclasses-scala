@@ -129,8 +129,7 @@
             <p>
                 <code class="haskell">
                     <span class="haskell fragment" data-noescape>data Person</span>
-                    <span class="haskell fragment" data-noescape> = Person</span>
-                    <span class="haskell fragment" data-noescape> String</span>
+                    <span class="haskell fragment" data-noescape> = String</span>
                     <span class="haskell fragment" data-noescape> Int</span>
                 </code>
             </p>
@@ -139,7 +138,7 @@
             <h1>Product type</h1>
             <p data-markdown>A Point ***has *** an x ***and*** an y</p>
             <pre>
-                <code class="haskell fragment" data-trim>data Point = Point Double Double</code>
+                <code class="haskell fragment" data-trim>data Point = Double Double</code>
             </pre>
         </section>
         <section>
@@ -162,35 +161,30 @@
                     src="https://embed.scalafiddle.io/embed?sfid=ZS6kvhc/0&theme=dark"></iframe>
         </section>
         <section>
-            <h1>Parameterization</h1>
-            <p data-markdown class="fragment">A computation ***may*** result in ***just*** its value or be
-                ***empty***</p>
+            <h1>Composition</h1>
+            <p data-markdown class="fragment">A result of a computation ***is*** empty or it just ***has*** a return value</p>
             <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=ZYT9Tx7/2&theme=dark"></iframe>
         </section>
         <section>
-            <h1>Parameterization</h1>
-            <p data-markdown class="fragment">A result of a computation ***is*** either an Int ***or*** a String</p>
+            <h1>Composition</h1>
+            <p data-markdown class="fragment">A result of a computation ***is*** either a String ***or*** an Int</p>
             <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=EL2ObHV/2&theme=dark"></iframe>
         </section>
         <section>
             <h1>Recursive types</h1>
-            <p class="fragment" data-fragment-index="1">Let's model a professor with his students</p>
-            <p class="fragment" data-fragment-index="2" data-markdown="">A professor ***has*** a name ***and*** a class
+            <p class="fragment" data-markdown="">A List ***is*** either an ***empty*** list or a combination of a head
+                ***and*** a tail</p>
+            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=KVzVHVC/1&theme=dark"></iframe>
+        </section>
+        <section>
+            <h1>Recursive types</h1>
+            <p class="fragment" data-markdown="">A professor ***has*** a name ***and*** a class
                 year ***and*** some students</p>
             <iframe class="fragment" data-fragment-index="3" height="300" frameborder="0"
                     style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=vdy4tNm/0&theme=dark"></iframe>
-            <p class="quote fragment" data-fragment-index="3"><em>Source <a
-                    href="https://www.youtube.com/watch?v=7xSfLPD6tiQ">Rob Norris</a></em></p>
-        </section>
-        <section>
-            <h1>Recursive types</h1>
-            <p class="fragment" data-markdown="">A List ***is*** either an ***empty*** list or a combination of a head
-                ***and*** a tail</p>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
-                    src="https://embed.scalafiddle.io/embed?sfid=KVzVHVC/0&theme=dark"></iframe>
         </section>
         <section>
             <h1>Take aways</h1>
@@ -217,7 +211,7 @@
         </section>
         <section>
             <h1>Problem #1 - OO approach</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=FclqCqq/0&theme=dark"></iframe>
+            <iframe height="500" frameborder="0" style="width: 100%; overflow: hidden;" src="https://embed.scalafiddle.io/embed?sfid=FclqCqq/2&theme=dark"></iframe>
         </section>
         <section>
             <h1><a href="https://en.wikipedia.org/wiki/Expression_problem">Expression problem</a></h1>
@@ -234,13 +228,14 @@
         </section>
         <section>
             <h1>Typeclasses to the rescue</h1>
-            <p>Concept from FP languages (Haskell)</p>
-            <p>Separate functions from data types</p>
+            <p class="fragment">Concept from FP languages (Haskell)</p>
+            <p class="fragment">Separate functionality and data types</p>
+            <p class="fragment">Are not classes! (thx Valentin)</p>
         </section>
         <section>
             <h1>Area Typeclass</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
-                    src="https://embed.scalafiddle.io/embed?sfid=SNQlzdX/2&theme=dark"></iframe>
+            <iframe height="500" frameborder="0" style="width: 100%; overflow: hidden;"
+                    src="https://embed.scalafiddle.io/embed?sfid=SNQlzdX/3&theme=dark"></iframe>
         </section>
         <section>
             <h1>Typeclasses - Simulacrum</h1>
@@ -249,7 +244,7 @@
         </section>
         <section>
             <h1>Typeclasses - Simulacrum</h1>
-            <pre class="fragment">
+            <pre>
                 <code class="scala codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
 import simulacrum._
 
@@ -262,10 +257,8 @@ implicit val intSerialisable = new JsonSerialisable[Int] {
 }
 
 import JsonSerialisable.ops._
-1.toJson
+1.toJson // prints {"elem":1}
                 </code></pre>
-            <p class="quote"><em>Source <a
-                    href="https://github.com/mpilquist/simulacrum">Michael Pilquist</a></em></p>
         </section>
         <section>
             <h1>More problems</h1>
@@ -291,7 +284,7 @@ public enum Day {
                 </code></pre>
         </section>
         <section>
-            <h1>Problem #2s</h1>
+            <h1>Problem #2</h1>
             <pre>
                 <code class="java codeSmall" style="line-height: 1.3em;" data-noescape data-trim>
 // class version 52.0 (52)
@@ -360,7 +353,7 @@ public final enum Day extends java/lang/Enum  {
         </section>
         <section>
             <h1>Order typeclass</h1>
-            <a href="http://typelevel.org/cats/" class="fragment">Cats library</a>
+            <a href="http://typelevel.org/cats/" class="fragment">Typelevel Cats library</a>
             <pre>
                 <code class="scala codeSmall fragment" style="line-height: 1.3em" data-trim>
 /**
@@ -376,7 +369,7 @@ trait Order[A]{
         </section>
         <section>
             <h1>Order typeclass</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+            <iframe height="500" frameborder="0" style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=CWKqB3a/7&theme=dark"></iframe>
         </section>
         <section>
@@ -434,22 +427,18 @@ trait Show[A] {
         </section>
         <section>
             <h1>Show typeclass</h1>
-            <iframe class="fragment" height="300" frameborder="0" style="width: 100%; overflow: hidden;"
+            <iframe class="fragment" height="500" frameborder="0" style="width: 100%; overflow: hidden;"
                     src="https://embed.scalafiddle.io/embed?sfid=JAhnXq1/1&theme=dark"></iframe>
-        </section>
-        <section>
-            <h1>Show typeclass</h1>
-            <iframe height="300" frameborder="0" style="width: 100%; overflow: hidden;"
-                    src="https://embed.scalafiddle.io/embed?sfid=qE8syMH/1&theme=dark"></iframe>
         </section>
         <section>
             <h1>Take aways</h1>
             <ul>
-                <li>Typeclasses are amazing</li>
-                <li>Use TCs to add functionality to your ADTs</li>
-                <li>Use simulacrum to avoid boilerplate</li>
-                <li>TC instances to support different types</li>
-                <li>TC instances to support different implementations</li>
+                <li class="fragment">Typeclasses are amazing</li>
+                <li class="fragment">TCs add functionality to your ADTs</li>
+                <li class="fragment">TCs keep your ADT clean</li>
+                <li class="fragment">Use simulacrum to avoid boilerplate</li>
+                <li class="fragment">TC instances to support different types</li>
+                <li class="fragment">TC instances to support different implementations</li>
             </ul>
         </section>
         <section>
